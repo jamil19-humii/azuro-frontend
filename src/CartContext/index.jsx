@@ -7,11 +7,11 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (product) => {
     setCartItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.id === product.id);
-      
+      const existingItem = prevItems.find((item) => item._id === product._id);
+
       if (existingItem) {
         return prevItems.map((item) =>
-          item.id === product.id
+          item._id === product._id
             ? { ...item, quantity: item.quantity + (product.quantity || 1) }
             : item
         );
@@ -20,28 +20,26 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-  // NEW: Remove item completely
   const removeFromCart = (id) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    setCartItems((prevItems) => prevItems.filter((item) => item._id !== id));
   };
 
-  // NEW: Update quantity manually from the cart page
   const updateQuantity = (id, newQty) => {
     if (newQty < 1) return;
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === id ? { ...item, quantity: newQty } : item
+        item._id === id ? { ...item, quantity: newQty } : item
       )
     );
   };
 
   const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-  
-  // NEW: Calculate the total price of the cart
   const cartTotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-
+  const clearCart = () => {
+  setCartItems([]);
+};
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, cartCount, cartTotal }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, clearCart,cartCount, cartTotal }}>
       {children}
     </CartContext.Provider>
   );

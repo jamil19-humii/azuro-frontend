@@ -589,3 +589,280 @@ nav .navPart2 ul li:hover .submenu{opacity:1; visibility:inherit; top:100%;}
 .blogDetailImgWrapper img { width: 100%; height: 100%; object-fit: cover; }
 
 .blogDetailContent p { font-size: 15px; line-height: 1.8; color: #444; margin-bottom: 20px; }
+
+/*--Account--*/
+.accountSec { padding: 50px 0 80px; }
+.accountHeader { margin-bottom: 35px; }
+.accountHeader h1 { font-size: 28px; font-weight: 700; color: #111; margin-bottom: 6px; }
+.accountHeader p { font-size: 14px; color: #777; }
+
+.accountGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.accountCard {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding: 25px;
+}
+.accountCard h3 { font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 20px; color: #111; }
+
+.accountDetailRow { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f2f2f2; font-size: 14px; }
+.accountDetailRow:last-child { border-bottom: none; }
+.accountDetailRow .label { color: #888; }
+
+.accountEmptyState { font-size: 13px; color: #999; margin-bottom: 15px; line-height: 1.6; }
+.accountLink { font-size: 13px; font-weight: 700; color: #111; text-decoration: none; border-bottom: 1px solid #111; padding-bottom: 2px; }
+.accountLink:hover { color: #2bbef9; border-color: #2bbef9; }
+
+.accountLinkBtn {
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #333;
+}
+.accountLinkBtn:hover { background: #f5f5f5; }
+
+.accountLogoutBtn {
+  height: 44px;
+  padding: 0 25px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.accountLogoutBtn:hover { background: #333; }
+
+@media (max-width: 900px) {
+  .accountGrid { grid-template-columns: 1fr; }
+}
+
+/*--Account Dropdown--*/
+.accountDropdown {
+  border-radius: 8px !important;
+  margin-top: 8px !important;
+  min-width: 220px !important;
+  box-shadow: 0 8px 24px rgba(15, 186, 255, 0.15) !important;
+  border: 1px solid rgba(15, 186, 255, 0.1) !important;
+}
+
+.accountDropdownHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: linear-gradient(135deg, #0fbaff 0%, #2bbef9 100%);
+}
+
+.accountDropdownAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.accountDropdownName {
+  margin: 0;
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+}
+
+.accountDropdownEmail {
+  margin: 0;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.accountDropdownItem {
+  font-size: 14px !important;
+  padding: 12px 16px !important;
+  color: #333 !important;
+  transition: background 0.15s ease !important;
+}
+
+.accountDropdownItem:hover {
+  background: #f0faff !important;
+  color: #0fbaff !important;
+}
+
+.accountDropdownLogout {
+  color: #ea2b0f !important;
+  font-weight: 600 !important;
+}
+
+.accountDropdownLogout:hover {
+  background: #fff1ee !important;
+  color: #ea2b0f !important;
+}
+/*--Checkout--*/
+.checkoutSec { padding: 50px 0 80px; }
+
+/*--Order Success Banner--*/
+.orderSuccessBanner {
+  background: #e6f7f0;
+  color: #00b074;
+  padding: 15px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+.orderList { display: flex; flex-direction: column; gap: 12px; }
+.orderItem { border: 1px solid #f2f2f2; border-radius: 4px; padding: 12px; }
+.orderItemHeader { display: flex; justify-content: space-between; margin-bottom: 6px; }
+.orderId { font-size: 13px; font-weight: 700; color: #111; }
+.orderStatus { font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; }
+.orderStatus-pending { background: #fff4e6; color: #d97706; }
+.orderStatus-shipped { background: #e6f0ff; color: #2563eb; }
+.orderStatus-delivered { background: #e6f7f0; color: #00b074; }
+.orderMeta { font-size: 12px; color: #999; margin-bottom: 4px; }
+.orderTotal { font-size: 14px; font-weight: 700; color: #111; }
+
+.orderProductsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.orderProductRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.orderProductImage {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #eee;
+  flex-shrink: 0;
+}
+
+.orderProductName {
+  font-size: 14px;
+  color: #333;
+}
+
+.accountLayout {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.accountSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 0 0 220px;
+}
+
+.accountSidebarBtn {
+  text-align: left;
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #333;
+}
+
+.accountSidebarBtn.active {
+  background: #000;
+  color: #fff;
+}
+
+.accountContent {
+  flex: 1;
+  min-width: 0;
+}
+
+/*--Address Management--*/
+.addressList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 15px 0;
+}
+
+.addressCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 14px 16px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.addressLabel {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.addressDeleteBtn {
+  border: none;
+  background: transparent;
+  color: #ea2b0f;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.addressForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+  max-width: 400px;
+}
+
+.addressForm input {
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.addressFormButtons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.addressSaveBtn {
+  height: 42px;
+  padding: 0 20px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.addressError {
+  color: #ea2b0f;
+  font-size: 13px;
+}

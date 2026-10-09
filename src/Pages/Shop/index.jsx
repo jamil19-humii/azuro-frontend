@@ -1,6 +1,7 @@
+import { useState, useEffect } from "react";
 import { useParams, useSearchParams, Link } from "react-router-dom";
+import axios from "axios";
 import Fuse from "fuse.js";
-import { products } from "../../data/products";
 import ProductCard from "../../Components/ProductCard";
 
 const Shop = () => {
@@ -8,20 +9,38 @@ const Shop = () => {
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("search");
 
-  let displayedProducts = category
-    ? products.filter((p) => p.category.toLowerCase() === category.toLowerCase())
-    : products;
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  if (subcategory) {
-    displayedProducts = displayedProducts.filter(
-      (p) => p.subcategory && p.subcategory.toLowerCase() === subcategory.toLowerCase()
-    );
-  }
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const params = {};
+        if (category) params.category = category;
+        if (subcategory) params.subcategory = subcategory;
+
+        const response = await axios.get("http://localhost:5000/api/products", { params });
+        setProducts(response.data);
+      } catch (err) {
+        console.error("Error fetching products:", err);
+        setError("Could not load products. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [category, subcategory]);
+
+  let displayedProducts = products;
 
   if (searchQuery) {
     const fuse = new Fuse(products, {
       keys: ["name", "category", "subcategory"],
-      threshold: 0.4, // lower = stricter, higher = looser matching
+      threshold: 0.4,
     });
     displayedProducts = fuse.search(searchQuery).map((result) => result.item);
   }
@@ -33,6 +52,26 @@ const Shop = () => {
     ? formatTitle(subcategory)
     : formatTitle(category);
 
+  if (loading) {
+    return (
+      <section className="homeProductsSec">
+        <div className="container" style={{ textAlign: "center", padding: "60px 0" }}>
+          <p>Loading products...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="homeProductsSec">
+        <div className="container" style={{ textAlign: "center", padding: "60px 0" }}>
+          <p>{error}</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="homeProductsSec">
       <div className="container">
@@ -42,7 +81,7 @@ const Shop = () => {
           <div className="shopGrid">
             {displayedProducts.length > 0 ? (
               displayedProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <ProductCard key={product._id} product={product} />
               ))
             ) : (
               <div style={{ textAlign: "center", padding: "50px", width: "100%" }}>

@@ -13,7 +13,7 @@ const ProductCard = ({ product, showAddToCart = true }) => {
   return (
     <div className="productItemWrapper">
       <div className="productCard">
-        <Link to={`/product/${product.id}`}>
+        <Link to={`/product/${product._id}`}>
           <div className="imgWrapper">
             <img src={product.image} alt={product.name} className="primaryImg" />
             <img src={product.hoverImage} alt={product.name} className="secondaryImg" />
@@ -31,7 +31,7 @@ const ProductCard = ({ product, showAddToCart = true }) => {
             <span>{product.rating}</span>
           </div>
           <h4 className="title">
-            <Link to={`/product/${product.id}`}>{product.name}</Link>
+            <Link to={`/product/${product._id}`}>{product.name}</Link>
           </h4>
           <div className="priceBox">
             {product.oldPrice && <span className="oldPrice">${product.oldPrice.toFixed(2)}</span>}

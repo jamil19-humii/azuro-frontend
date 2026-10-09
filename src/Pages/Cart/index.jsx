@@ -1,15 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../../CartContext";
 import Button from "@mui/material/Button";
 import { FaTrash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const { cartItems, removeFromCart, updateQuantity, cartTotal } = useCart();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // If cart is empty
   if (cartItems.length === 0) {
     return (
       <section className="cartPage">
@@ -29,9 +26,8 @@ const Cart = () => {
     <section className="cartPage">
       <div className="container">
         <h1 style={{ marginBottom: "30px" }}>Shopping Cart</h1>
-        
+
         <div style={{ display: "flex", gap: "40px", flexWrap: "wrap" }}>
-          {/* Cart Items Table */}
           <div style={{ flex: "2 1 600px" }}>
             <table className="cartTable">
               <thead>
@@ -45,7 +41,7 @@ const Cart = () => {
               </thead>
               <tbody>
                 {cartItems.map((item) => (
-                  <tr key={item.id}>
+                  <tr key={item._id}>
                     <td>
                       <div className="cartProduct">
                         <img src={item.image} alt={item.name} />
@@ -55,14 +51,14 @@ const Cart = () => {
                     <td>${item.price.toFixed(2)}</td>
                     <td>
                       <div className="qtyBox">
-                        <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
+                        <button onClick={() => updateQuantity(item._id, item.quantity - 1)}>-</button>
                         <span>{item.quantity}</span>
-                        <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                        <button onClick={() => updateQuantity(item._id, item.quantity + 1)}>+</button>
                       </div>
                     </td>
                     <td><strong>${(item.price * item.quantity).toFixed(2)}</strong></td>
                     <td>
-                      <button className="removeBtn" onClick={() => removeFromCart(item.id)}>
+                      <button className="removeBtn" onClick={() => removeFromCart(item._id)}>
                         <FaTrash />
                       </button>
                     </td>
@@ -72,7 +68,6 @@ const Cart = () => {
             </table>
           </div>
 
-          {/* Cart Summary */}
           <div style={{ flex: "1 1 300px" }}>
             <div className="cartSummary">
               <h4>Order Summary</h4>
@@ -89,18 +84,17 @@ const Cart = () => {
                 <span>${cartTotal.toFixed(2)}</span>
               </div>
               <Button
-  variant="contained"
-  fullWidth
-  className="addToCartBtn"
-  style={{ marginTop: "20px", padding: "15px" }}
-  onClick={() => navigate("/checkout")}
->
-  Proceed to Checkout
-</Button>
+                variant="contained"
+                fullWidth
+                className="addToCartBtn"
+                style={{ marginTop: "20px", padding: "15px" }}
+                onClick={() => navigate("/checkout")}
+              >
+                Proceed to Checkout
+              </Button>
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );

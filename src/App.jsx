@@ -24,6 +24,16 @@ import BlogDetail from "./Pages/BlogDetail";
 import Checkout from "./Pages/Checkout";
 import Login from "./Pages/Login";
 
+import { AuthProvider } from "./AuthContext";
+import Register from "./Pages/Register";
+
+import Account from "./Pages/Account/index.jsx";
+import AccountDetails from "./Pages/Account/AccountDetails";
+import OrderHistory from "./Pages/Account/OrderHistory";
+import SavedAddresses from "./Pages/Account/SavedAddresses";
+
+
+
 const MyContext = createContext();
 
 function App() {
@@ -51,6 +61,7 @@ function App() {
     };
 
     return (
+      <AuthProvider>
       <CartProvider>
       <BrowserRouter>
         <MyContext.Provider value={values}>
@@ -79,12 +90,27 @@ function App() {
   <Route path="/blogs" element={<Blog />} />
   <Route path="/blog/:id" element={<BlogDetail />} />
   <Route path="/login" element={<Login />} />
+  {/*Login and Register routes*/}
+<Route path="/login" element={<Login />} />
+<Route path="/register" element={<Register />} />
+
+
+  {/* Account route */}
+ 
+  <Route path="/account" element={<Account />}>
+  <Route index element={<AccountDetails />} />
+  <Route path="orders" element={<OrderHistory />} />
+  <Route path="addresses" element={<SavedAddresses />} />
+</Route>
+
+
 </Routes>
    <Footer />
           
         </MyContext.Provider>
       </BrowserRouter>
       </CartProvider>
+      </AuthProvider>
     );
 }
 
