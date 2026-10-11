@@ -33,27 +33,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="footerCol">
-            <h4>Connect</h4>
-            <div className="footerSocial">
-              <a
-                href="https://github.com/jamil19-humii"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub"
-              >
-                GH
-              </a>
-              <a
-                href="https://www.linkedin.com/in/humii-jamila-935b833a1/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-              >
-                IN
-              </a>
-            </div>
-          </div>
+  
         </div>
 
         <div className="footerBottom">

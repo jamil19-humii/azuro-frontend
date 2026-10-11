@@ -1,9 +1,24 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
 import Slider from "react-slick/lib/slider";
-import { products } from "../../data/products";
 import ProductCard from "../ProductCard";
 
 const HomeProducts = () => {
   const SlickSlider = Slider.default || Slider;
+  const [bestSellers, setBestSellers] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/products");
+        // Take the first 3 products as "best sellers" for now
+        setBestSellers(res.data.slice(0, 3));
+      } catch (err) {
+        console.error("Error fetching best sellers:", err);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const settings = {
     dots: false,
@@ -17,8 +32,7 @@ const HomeProducts = () => {
     ],
   };
 
-  // Pick 3 real products to feature as "best sellers"
-  const bestSellers = products.filter(p => [10, 14, 25].includes(p.id));
+  if (bestSellers.length === 0) return null;
 
   return (
     <section className="homeProductsSec">
@@ -33,9 +47,9 @@ const HomeProducts = () => {
 
         <div className="productSlider">
           <SlickSlider {...settings}>
-           {bestSellers.map((product) => (
-  <ProductCard key={product.id} product={product} showAddToCart={false} />
-))}
+            {bestSellers.map((product) => (
+              <ProductCard key={product._id} product={product} showAddToCart={false} />
+            ))}
           </SlickSlider>
         </div>
       </div>

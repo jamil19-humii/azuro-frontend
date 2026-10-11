@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../AuthContext";
+
 
 const OrderHistory = () => {
   const { user } = useAuth();
   const [orders, setOrders] = useState([]);
   const [loadingOrders, setLoadingOrders] = useState(true);
+   const location = useLocation();
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -34,10 +36,18 @@ const OrderHistory = () => {
       </>
     );
   }
-
+ 
+  
   return (
+  <div>
+    {location.state?.orderPlaced && (
+      <div className="orderSuccessBanner">
+        ✅ Your order was placed successfully! Order #{location.state.orderId.slice(-6)}
+      </div>
+    )}
+
     <div className="orderList">
-      {orders.map((order) => (
+       {orders.map((order) => (
         <div key={order._id} className="orderItem">
           <div className="orderItemHeader">
             <span className="orderId">#{order._id.slice(-6)}</span>
@@ -60,7 +70,10 @@ const OrderHistory = () => {
         </div>
       ))}
     </div>
-  );
+    </div>
+ 
+);
+
 };
 
 export default OrderHistory;

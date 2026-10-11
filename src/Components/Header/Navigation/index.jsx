@@ -50,7 +50,7 @@ const Navigation = () => {
                                         <div className="submenu">
                                             <Link to="/men/clothing"><Button>clothing</Button></Link>
                                             <Link to="/men/footwear"><Button>footwear</Button></Link>
-                                            <Link to="/men/watches"><Button>watches</Button></Link>
+                   
                                         </div>
                                     </li>
                                     <li className={activeSubmenu === "women" ? "active" : ""}>
@@ -63,7 +63,7 @@ const Navigation = () => {
                                         <div className="submenu">
                                             <Link to="/women/clothing"><Button>clothing</Button></Link>
                                             <Link to="/women/footwear"><Button>footwear</Button></Link>
-                                            <Link to="/women/watches"><Button>watches</Button></Link>
+                                    
                                         </div>
                                     </li>
                                     <li><Link to="/beauty"><Button>beauty</Button></Link></li>
@@ -85,7 +85,7 @@ const Navigation = () => {
                                 <div className='submenu shadow'>
                                     <Link to="/men/clothing"><Button>clothing</Button></Link>
                                     <Link to="/men/footwear"><Button>footwear</Button></Link>
-                                    <Link to="/men/watches"><Button>watches</Button></Link>
+                         
                                 </div> 
                             </li>
                             
@@ -94,7 +94,7 @@ const Navigation = () => {
                                 <div className='submenu shadow'>
                                     <Link to="/women/clothing"><Button>clothing</Button></Link>
                                     <Link to="/women/footwear"><Button>footwear</Button></Link>
-                                    <Link to="/women/watches"><Button>watches</Button></Link>
+
                                 </div>
                             </li>
                             

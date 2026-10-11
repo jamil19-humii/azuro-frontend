@@ -17,6 +17,10 @@ body{font-family:"Lato", sans-serif;}
 ::-webkit-scrollbar-thumb{background:#ccc !important;}
 ::-webkit-scrollbar-track{background:transparent !important;}
 
+:root {
+  --primary-color: #0fbaff;
+  --primary-hover: #1fb8f5;
+}
 
 nav {
   padding: 10px 0;
@@ -115,9 +119,9 @@ nav .navPart1 .catWrapper .sidebarNav ul li:hover .submenu button{border-radius:
 
 nav .allCatTab{ width: 100%;
   justify-content: flex-start !important;
-  gap: 8px;background: #0fbaff; padding:10px 15px !important; border-radius: 30px !important;}
+  gap: 8px;background: var(--primary-color); padding:10px 15px !important; border-radius: 30px !important;}
 nav .allCatTab {color:#fff;}
-nav .allCatTab:hover{background: #1fb8f5;}
+nav .allCatTab:hover{background: var(--primary-hover);}
 nav .allCatTab .text{font-weight:600 ;}
 
 nav .allCatTab .icon1 svg{font-size: 20px !important ;}
@@ -471,7 +475,7 @@ nav .navPart2 ul li:hover .submenu{opacity:1; visibility:inherit; top:100%;}
 
 .footerTop {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr 1fr ;
   gap: 30px;
   padding-bottom: 40px;
 }
@@ -634,14 +638,19 @@ nav .navPart2 ul li:hover .submenu{opacity:1; visibility:inherit; top:100%;}
 .accountLogoutBtn {
   height: 44px;
   padding: 0 25px;
-  background: #000;
+  background:   #ea2b0f;
   color: #fff;
   border: none;
   border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
+   text-align: center;
+  transition: background 0.2s, box-shadow 0.2s;
 }
-.accountLogoutBtn:hover { background: #333; }
+.accountLogoutBtn:hover { 
+    background:  #e63e1f;
+  box-shadow: 0 4px 12px rgba(255, 122, 26, 0.35);
+ }
 
 @media (max-width: 900px) {
   .accountGrid { grid-template-columns: 1fr; }
@@ -787,10 +796,16 @@ nav .navPart2 ul li:hover .submenu{opacity:1; visibility:inherit; top:100%;}
   cursor: pointer;
   font-weight: 500;
   color: #333;
+  transition: background 0.2s, color 0.2s;
+}
+
+.accountSidebarBtn:hover {
+  background: rgba(0, 188, 212, 0.1);
+  color: var(--primary-hover);
 }
 
 .accountSidebarBtn.active {
-  background: #000;
+  background: var(--primary-color);
   color: #fff;
 }
 
@@ -855,14 +870,163 @@ nav .navPart2 ul li:hover .submenu{opacity:1; visibility:inherit; top:100%;}
 .addressSaveBtn {
   height: 42px;
   padding: 0 20px;
-  background: #000;
+  background:
+  var(--primary-color);
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background 0.2s;
+}
+.addressSaveBtn:hover {
+  background: var(--primary-color);
 }
 
 .addressError {
   color: #ea2b0f;
   font-size: 13px;
+}
+
+/*--Checkout Address Picker--*/
+:root {
+  --azuro-cyan: #00bcd4;      /* swap for your real cyan */
+  --azuro-orange: #ff7a1a;    /* swap for your real orange */
+}
+
+.checkoutAddressPicker {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 25px;
+}
+
+.checkoutAddressOption {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 2px solid #e5e5e5;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  background: #fff;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.checkoutAddressOption:hover {
+  border-color: var(--azuro-cyan);
+}
+
+.checkoutAddressOption.selected {
+  border-color: var(--azuro-cyan);
+  background: rgba(0, 188, 212, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 188, 212, 0.2);
+}
+
+.checkoutAddressOption input[type="radio"] {
+  accent-color: var(--azuro-cyan);
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.checkoutAddressOption strong {
+  color: var(--azuro-orange);
+}
+
+.placeOrderBtn {
+  height: 48px;
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.placeOrderBtn:hover:not(:disabled) {
+   background: var(--primary-hover);
+  box-shadow:   0 4px 12px rgba(15, 186, 255, 0.3);;
+}
+
+.placeOrderBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/*--Contact Form--*/
+.contactSec {
+  padding: 60px 0;
+  max-width: 600px;
+}
+
+.contactIntro {
+  margin: 10px 0 25px;
+  color: #555;
+}
+
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.contactForm label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.contactForm input,
+.contactForm textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.contactForm input:focus,
+.contactForm textarea:focus {
+  outline: none;
+  border-color: var(--azuro-cyan);
+  box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.15);
+}
+
+.contactBtn {
+  height: 48px;
+  background: var(--azuro-cyan);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.contactBtn:hover:not(:disabled) {
+  background: #00a5bb;
+}
+
+.contactBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.contactSuccess {
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  background: rgba(0, 188, 212, 0.1);
+  border: 1px solid var(--azuro-cyan);
+  border-radius: 6px;
+}
+
+.contactError {
+  color: #ea2b0f;
+  margin-bottom: 15px;
+  font-size: 14px;
 }

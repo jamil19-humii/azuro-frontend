@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
 import { useCart } from "../../CartContext";
@@ -15,13 +15,57 @@ const Checkout = () => {
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [orderPlaced, setOrderPlaced] = useState(false); // <-- new flag
+  const [orderPlaced, setOrderPlaced] = useState(false);
+
+  const [savedAddresses, setSavedAddresses] = useState([]);
+  const [selectedAddressId, setSelectedAddressId] = useState("new");
+
+  useEffect(() => {
+    if (!user) return;
+
+    const fetchAddresses = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/users/addresses", {
+          headers: { Authorization: `Bearer ${user.token}` },
+        });
+        setSavedAddresses(res.data);
+
+        if (res.data.length > 0) {
+          const first = res.data[0];
+          setSelectedAddressId(first._id);
+          setFullName(first.fullName);
+          setAddress(first.address);
+          setCity(first.city);
+          setPhone(first.phone);
+        }
+      } catch (err) {
+        console.error("Error fetching addresses:", err);
+      }
+    };
+
+    fetchAddresses();
+  }, [user]);
+
+  const handleSelectSaved = (addr) => {
+    setSelectedAddressId(addr._id);
+    setFullName(addr.fullName);
+    setAddress(addr.address);
+    setCity(addr.city);
+    setPhone(addr.phone);
+  };
+
+  const handleUseNew = () => {
+    setSelectedAddressId("new");
+    setFullName("");
+    setAddress("");
+    setCity("");
+    setPhone("");
+  };
 
   if (!user) {
     return <Navigate to="/login" replace />;
   }
 
-  // Only redirect to cart if it's ACTUALLY empty AND we didn't just place an order
   if (cartItems.length === 0 && !orderPlaced) {
     return <Navigate to="/cart" replace />;
   }
@@ -54,9 +98,9 @@ const Checkout = () => {
         }
       );
 
-      setOrderPlaced(true); // <-- set BEFORE clearing cart
+      setOrderPlaced(true);
       clearCart();
-      navigate("/account", { state: { orderPlaced: true, orderId: response.data._id } });
+      navigate("/account/orders", { state: { orderPlaced: true, orderId: response.data._id } });
     } catch (err) {
       const message = err.response?.data?.message || "Something went wrong placing your order.";
       setError(message);
@@ -64,8 +108,6 @@ const Checkout = () => {
       setLoading(false);
     }
   };
-
-  // ...rest of the component (the return with the form) stays exactly the same
 
   return (
     <section className="checkoutSec">
@@ -79,6 +121,33 @@ const Checkout = () => {
 
             {error && (
               <p style={{ color: "#ea2b0f", marginBottom: "15px", fontSize: "14px" }}>{error}</p>
+            )}
+
+            {savedAddresses.length > 0 && (
+              <div className="checkoutAddressPicker">
+                {savedAddresses.map((addr) => (
+                 <label className={`checkoutAddressOption ${selectedAddressId === "new" ? "selected" : ""}`}>
+                    <input
+                      type="radio"
+                      name="savedAddress"
+                      checked={selectedAddressId === addr._id}
+                      onChange={() => handleSelectSaved(addr)}
+                    />
+                    <span>
+                      <strong>{addr.label}</strong> · {addr.fullName}, {addr.address}, {addr.city}
+                    </span>
+                  </label>
+                ))}
+                <label className="checkoutAddressOption">
+                  <input
+                    type="radio"
+                    name="savedAddress"
+                    checked={selectedAddressId === "new"}
+                    onChange={handleUseNew}
+                  />
+                  <span><b><strong>Use a new address</strong></b></span>
+                </label>
+              </div>
             )}
 
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
@@ -125,13 +194,10 @@ const Checkout = () => {
                 </div>
               </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                style={{ height: "48px", background: "#000", color: "#fff", border: "none", borderRadius: "4px", fontWeight: 600, cursor: "pointer", marginTop: "10px" }}
-              >
+              <button type="submit" disabled={loading} className="placeOrderBtn">
                 {loading ? "Placing order..." : "Place Order"}
-              </button>
+               </button>
+               
             </form>
           </div>
 
