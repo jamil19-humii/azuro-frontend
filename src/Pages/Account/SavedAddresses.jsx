@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../../AuthContext";
+import { API_URL } from "../../config";
 
-const API = "http://localhost:5000/api/users/addresses";
+const API = `${API_URL}/api/users/addresses`;
 
 const SavedAddresses = () => {
   const { user } = useAuth();

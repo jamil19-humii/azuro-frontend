@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { API_URL } from "../../config";
 
 const Contact = () => {
   const [name, setName] = useState("");
@@ -16,7 +17,7 @@ const Contact = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:5000/api/contact", {
+      const res = await axios.post(`${API_URL}/api/contact`, {
         name,
         email,
         message,

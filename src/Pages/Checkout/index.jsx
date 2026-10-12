@@ -3,6 +3,7 @@ import { useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
 import { useCart } from "../../CartContext";
 import { useAuth } from "../../AuthContext";
+import { API_URL } from "../../config";
 
 const Checkout = () => {
   const { cartItems, cartTotal, clearCart } = useCart();
@@ -25,7 +26,7 @@ const Checkout = () => {
 
     const fetchAddresses = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/users/addresses", {
+        const res = await axios.get(`${API_URL}/api/users/addresses`, {
           headers: { Authorization: `Bearer ${user.token}` },
         });
         setSavedAddresses(res.data);
@@ -85,7 +86,7 @@ const Checkout = () => {
       }));
 
       const response = await axios.post(
-        "http://localhost:5000/api/orders",
+        `${API_URL}/api/orders`,
         {
           orderItems,
           shippingAddress: { fullName, address, city, phone },

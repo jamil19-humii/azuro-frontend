@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Slider from "react-slick/lib/slider";
 import ProductCard from "../ProductCard";
+import { API_URL } from "../../config";
 
 const HomeProducts = () => {
   const SlickSlider = Slider.default || Slider;
@@ -10,7 +11,7 @@ const HomeProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/products");
+        const res = await axios.get(`${API_URL}/api/products`);
         // Take the first 3 products as "best sellers" for now
         setBestSellers(res.data.slice(0, 3));
       } catch (err) {

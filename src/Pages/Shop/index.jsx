@@ -3,6 +3,7 @@ import { useParams, useSearchParams, Link } from "react-router-dom";
 import axios from "axios";
 import Fuse from "fuse.js";
 import ProductCard from "../../Components/ProductCard";
+import { API_URL } from "../../config";
 
 const Shop = () => {
   const { category, subcategory } = useParams();
@@ -22,7 +23,7 @@ const Shop = () => {
         if (category) params.category = category;
         if (subcategory) params.subcategory = subcategory;
 
-        const response = await axios.get("http://localhost:5000/api/products", { params });
+        const response = await axios.get(`${API_URL}/api/products`, { params });
         setProducts(response.data);
       } catch (err) {
         console.error("Error fetching products:", err);
